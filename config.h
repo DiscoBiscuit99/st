@@ -5,7 +5,8 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-static char *font = "Fira Code:pixelsize=16:antialias=true:autohint=true";
+//static char *font = "Fira Code:pixelsize=16:antialias=true:autohint=true";
+static char *font = "Hack Nerd Font:pixelsize=16:antialias=true:autohint=true";
 static char *font2[] = { "JoyPixels:pixelsize=18:antialias=true:autohint=true" };
 static int borderpx = 2;
 
@@ -94,28 +95,34 @@ float alpha = 0.90;
 
 /* Terminal colors (16 first used in escape sequence) */
 static const char *colorname[] = {
-	"#1d2021", /* hard contrast: #1d2021 / medium contrast: #282828 / soft contrast: #32302f */
-	"#cc241d",
-	"#98971a",
-	"#d79921",
-	"#458588",
-	"#b16286",
-	"#689d6a",
-	"#a89984",
-	"#928374",
-	"#fb4934",
-	"#b8bb26",
-	"#fabd2f",
-	"#83a598",
-	"#d3869b",
-	"#8ec07c",
-	"#ebdbb2",
+    // 8 bright colors
+	"#1d2021", // black /* hard contrast: #1d2021 / medium contrast: #282828 / soft contrast: #32302f */
+	"#cc241d", // red
+	"#98971a", // green
+	"#d79921", // yellow
+	"#458588", // blue
+	"#b16286", // magenta
+	"#689d6a", // cyan
+	"#a89984", // white
+    // 8 normal colors
+	"#928374", // black
+	"#fb4934", // red
+	"#b8bb26", // green
+	"#fabd2f", // yellow
+	"#83a598", // blue
+	"#d3869b", // magenta
+	"#8ec07c", // cyan
+	"#ebdbb2", // white
 	[255] = 0,
 	/* more colors can be added after 255 to use with DefaultXX */
-	"#add8e6", /* 256 -> cursor */
+	//"#add8e6", [> 256 -> cursor <]
+	//"#555555", [> 257 -> rev cursor<]
+	//"#282828", [> 258 -> bg <]
+	//"#ebdbb2", [> 259 -> fg <]
+	"#d9d9d9", /* 256 -> cursor */
 	"#555555", /* 257 -> rev cursor*/
-	"#282828", /* 258 -> bg */
-	"#ebdbb2", /* 259 -> fg */
+	"#121212", /* 258 -> bg */
+	"#d6d6d6", /* 259 -> fg */
 };
 
 /*
