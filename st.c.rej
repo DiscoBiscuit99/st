@@ -1,12 +1,13 @@
 --- st.c
 +++ st.c
-@@ -2670,8 +2670,7 @@ draw(void)
- 	drawregion(0, 0, term.col, term.row);
- 	if (term.scr == 0)
- 		xdrawcursor(cx, term.c.y, term.line[term.c.y][cx],
--				term.ocx, term.ocy, term.line[term.ocy][term.ocx],
--				term.line[term.ocy], term.col);
-+				term.ocx, term.ocy, term.line[term.ocy][term.ocx]);
- 	term.ocx = cx;
- 	term.ocy = term.c.y;
- 	xfinishdraw();
+@@ -44,10 +44,6 @@
+ #define ISCONTROL(c)		(ISCONTROLC0(c) || ISCONTROLC1(c))
+ #define ISDELIM(u)		(utf8strchr(worddelimiters, u) != NULL)
+ 
+-#define ISUNICHR(u)		((48 <= u && u <= 57) || \
+-				(65 <= u && u <= 70) || \
+-				(97 <= u && u <= 102))
+-
+ /* constants */
+ #define ISO14755CMD		"dmenu -w \"$WINDOWID\" -p codepoint: </dev/null"
+ 

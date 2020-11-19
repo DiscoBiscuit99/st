@@ -239,6 +239,12 @@ static uchar utfmask[UTF_SIZ + 1] = {0xC0, 0x80, 0xE0, 0xF0, 0xF8};
 static Rune utfmin[UTF_SIZ + 1] = {       0,    0,  0x80,  0x800,  0x10000};
 static Rune utfmax[UTF_SIZ + 1] = {0x10FFFF, 0x7F, 0x7FF, 0xFFFF, 0x10FFFF};
 
+/* unicode */
+
+int unicodemode = 0;
+unsigned int unicodebufferindex = 0;
+char unicodebuffer[5] = {0, 0, 0, 0, '\0'};
+
 ssize_t
 xwrite(int fd, const char *s, size_t len)
 {
@@ -847,26 +853,78 @@ ttywrite(const char *s, size_t n, int may_echo)
 
 	kscrolldown(&arg);
 
-	if (may_echo && IS_SET(MODE_ECHO))
-		twrite(s, n, 1);
+	int unichr;
+	char uniptr[UTF_SIZ];
+	size_t unilen;
 
-	if (!IS_SET(MODE_CRLF)) {
-		ttywriteraw(s, n);
-		return;
-	}
+	if (unicodemode) {
 
-	/* This is similar to how the kernel handles ONLCR for ttys */
-	while (n > 0) {
-		if (*s == '\r') {
-			next = s + 1;
-			ttywriteraw("\r\n", 2);
-		} else {
-			next = memchr(s, '\r', n);
-			DEFAULT(next, s + n);
-			ttywriteraw(s, next - s);
+		if (*s == (char)127) {
+			/* backspace */
+			if (unicodebufferindex > 0) {
+				unicodebuffer[unicodebufferindex] = 0;
+				unicodebufferindex--;
+			}
+
+			unichr = (int)strtol(unicodebuffer, NULL, 16);
+
+			if (unichr > 32) {
+				tmoveto(term.c.x - 1, term.c.y);
+				tputc(unichr);
+			}
+		} else if (*s == '\r') {
+			/* submit */
+			unichr = (int)strtol(unicodebuffer, NULL, 16);
+			unilen = utf8encode(unichr, uniptr);
+
+			if (unichr > 32) {
+				tmoveto(term.c.x - 1, term.c.y);
+				ttywriteraw((const char *)uniptr, unilen);
+			}
+
+			toggleunicodemode(NULL);
+		} else if (*s == '\033') {
+			/* cancel */
+			toggleunicodemode(NULL);
+		} else if (ISUNICHR(*s)) {
+
+			if (unicodebufferindex < 4) {
+				unicodebuffer[unicodebufferindex] = *s;
+				unicodebufferindex++;
+
+				unichr = (int)strtol(unicodebuffer, NULL, 16);
+
+				if (unichr > 32) {
+					tmoveto(term.c.x - 1, term.c.y);
+					tputc(unichr);
+				}
+			}
+
 		}
-		n -= next - s;
-		s = next;
+
+	} else {
+
+		if (may_echo && IS_SET(MODE_ECHO))
+			twrite(s, n, 1);
+
+		if (!IS_SET(MODE_CRLF)) {
+			ttywriteraw(s, n);
+			return;
+		}
+
+		/* This is similar to how the kernel handles ONLCR for ttys */
+		while (n > 0) {
+			if (*s == '\r') {
+				next = s + 1;
+				ttywriteraw("\r\n", 2);
+			} else {
+				next = memchr(s, '\r', n);
+				DEFAULT(next, s + n);
+				ttywriteraw(s, next - s);
+			}
+			n -= next - s;
+			s = next;
+		}
 	}
 }
 
@@ -2571,6 +2629,7 @@ twrite(const char *buf, int buflen, int show_ctrl)
 			u = buf[n] & 0xFF;
 			charsize = 1;
 		}
+		
 		if (show_ctrl && ISCONTROL(u)) {
 			if (u & 0x80) {
 				u &= 0x7f;
@@ -2674,6 +2733,28 @@ tresize(int col, int row)
 		tcursor(CURSOR_LOAD);
 	}
 	term.c = c;
+}
+
+void
+toggleunicodemode(const Arg *a)
+{
+	int index, len;
+	Rune u;
+	char *ptr;
+
+	if (unicodemode) {
+		unicodemode = 0;
+
+		unicodebufferindex = 0;
+
+		/* processing */
+
+		unicodebuffer[0] = unicodebuffer[1] = unicodebuffer[2] = \
+		unicodebuffer[3] = 0;
+	} else {
+		unicodemode = 1;
+		tputc('u');
+	}
 }
 
 void
