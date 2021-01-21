@@ -5,9 +5,14 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-//static char *font = "Fira Code:pixelsize=16:antialias=true:autohint=true";
-static char *font = "Hack Nerd Font:pixelsize=16:antialias=true:autohint=true";
-static char *font2[] = { "JoyPixels:pixelsize=18:antialias=true:autohint=true" };
+//static char *font = "Fira Code:pixelsize=14:antialias=true:autohint=true";
+//static char *font = "Hack Nerd Font:pixelsize=14:antialias=true:autohint=true";
+static char *font = "Noto Sans Mono:pixelsize=14:antialias=true:autohint=true";
+static char *font2[] = {
+    "JoyPixels:pixelsize=16:antialias=true:autohint=true", 
+    "FontAwesome:size=10",
+    "NotoSansMono Nerd Font Mono:size=8",
+};
 static int borderpx = 2;
 
 /*
@@ -18,7 +23,7 @@ static int borderpx = 2;
  * 4: value of shell in /etc/passwd
  * 5: value of shell in config.h
  */
-static char *shell = "/bin/sh";
+static char *shell = "/bin/zsh";
 char *utmp = NULL;
 char *stty_args = "stty raw pass8 nl -echo -iexten -cstopb 38400";
 
@@ -96,23 +101,23 @@ float alpha = 0.90;
 /* Terminal colors (16 first used in escape sequence) */
 static const char *colorname[] = {
     // 8 bright colors
-	"#1d2021", // black /* hard contrast: #1d2021 / medium contrast: #282828 / soft contrast: #32302f */
-	"#cc241d", // red
-	"#98971a", // green
-	"#d79921", // yellow
-	"#458588", // blue
-	"#d3869b", // magenta
-	"#689d6a", // cyan
-	"#ebdbb2", // white
+	"#928374", // black - bright
+	"#fb4934", // red - bright
+	"#b8bb26", // green - bright
+	"#fabd2f", // yellow - bright
+	"#458588", // blue - dark
+	"#d3869b", // magenta - bright
+	"#8ec07c", // cyan - bright
+	"#ebdbb2", // white - bright
     // 8 normal colors
-	"#928374", // black
-	"#fb4934", // red
-	"#b8bb26", // green
-	"#fabd2f", // yellow
-	"#83a598", // blue
-	"#b16286", // magenta
-	"#8ec07c", // cyan
-	"#a89984", // white
+	"#1d2021", // black - dark /* hard contrast: #1d2021 / medium contrast: #282828 / soft contrast: #32302f */
+	"#cc241d", // red - dark
+	"#98971a", // green - dark
+	"#d79921", // yellow - dark
+	"#83a598", // blue - bright
+	"#b16286", // magenta - dark
+	"#689d6a", // cyan - dark
+	"#a89984", // white - dark
 	[255] = 0,
 	/* more colors can be added after 255 to use with DefaultXX */
 	//"#add8e6", [> 256 -> cursor <]
@@ -168,7 +173,7 @@ static unsigned int defaultattr = 11;
  */
 ResourcePref resources[] = {
 	{ "font",         STRING,  &font },
-	{ "fontalt0",     STRING,  &font2[0] },
+	{ "fontalt0",     STRING,  &font2[2] },
 	{ "color0",       STRING,  &colorname[0] },
 	{ "color1",       STRING,  &colorname[1] },
 	{ "color2",       STRING,  &colorname[2] },
