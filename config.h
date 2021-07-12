@@ -7,11 +7,12 @@
  */
 //static char *font = "Fira Code:pixelsize=14:antialias=true:autohint=true";
 //static char *font = "Hack Nerd Font:pixelsize=14:antialias=true:autohint=true";
-static char *font = "Noto Sans Mono:pixelsize=14:antialias=true:autohint=true";
+//static char *font = "Noto Sans Mono:pixelsize=20:antialias=true:autohint=true";
+static char *font = "Cascadia Code:pixelsize=21:antialias=true:autohint=true";
 static char *font2[] = {
-    "JoyPixels:pixelsize=16:antialias=true:autohint=true", 
-    "FontAwesome:size=10",
-    "NotoSansMono Nerd Font Mono:size=8",
+    //"JoyPixels:pixelsize=16:antialias=true:autohint=true", 
+    //"FontAwesome:size=10",
+    //"NotoSansMono Nerd Font Mono:size=8",
 };
 static int borderpx = 2;
 
