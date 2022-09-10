@@ -8,9 +8,10 @@
 //static char *font = "Fira Code:pixelsize=14:antialias=true:autohint=true";
 //static char *font = "Hack Nerd Font:pixelsize=14:antialias=true:autohint=true";
 //static char *font = "Noto Sans Mono:pixelsize=20:antialias=true:autohint=true";
-static char *font = "Cascadia Code:pixelsize=21:antialias=true:autohint=true";
+//static char *font = "JetBrains Mono:pixelsize=18:antialias=true:autohint=true";
+static char *font = "Courier Prime Code:pixelsize=18";
 static char *font2[] = {
-    //"JoyPixels:pixelsize=16:antialias=true:autohint=true", 
+    //"JoyPixels:pixelsize=16:antialias=true:autohint=true",
     //"FontAwesome:size=10",
     //"NotoSansMono Nerd Font Mono:size=8",
 };
@@ -102,33 +103,51 @@ float alpha = 0.90;
 /* Terminal colors (16 first used in escape sequence) */
 static const char *colorname[] = {
     // 8 bright colors
-	"#928374", // black - bright
-	"#fb4934", // red - bright
-	"#b8bb26", // green - bright
-	"#fabd2f", // yellow - bright
-	"#458588", // blue - dark
-	"#d3869b", // magenta - bright
-	"#8ec07c", // cyan - bright
-	"#ebdbb2", // white - bright
+    "#928374", // black - bright
+    "#ea6962", // red - bright
+    "#a9b665", // green - bright
+    "#e3a84e", // yellow - bright
+    "#7daea3", // blue - bright
+    "#d3869b", // magenta - bright
+    "#89b482", // cyan - bright
+    "#dfbf8e", // white - bright
+	//"#928374", // black - bright
+	//"#fb4934", // red - bright
+	//"#b8bb26", // green - bright
+	//"#fabd2f", // yellow - bright
+	//"#458588", // blue - dark
+	//"#d3869b", // magenta - bright
+	//"#8ec07c", // cyan - bright
+	//"#ebdbb2", // white - bright
     // 8 normal colors
-	"#1d2021", // black - dark /* hard contrast: #1d2021 / medium contrast: #282828 / soft contrast: #32302f */
-	"#cc241d", // red - dark
-	"#98971a", // green - dark
-	"#d79921", // yellow - dark
-	"#83a598", // blue - bright
-	"#b16286", // magenta - dark
-	"#689d6a", // cyan - dark
-	"#a89984", // white - dark
+    "#665c54", // black - normal
+    "#ea6962", // red - normal
+    "#a9b665", // green - normal
+    "#e78a4e", // yellow - normal
+    "#7daea3", // blue - normal
+    "#d3869b", // magenta - normal
+    "#89b482", // cyan - normal
+    "#dfbf8e", // white - normal
+	//"#1d2021", // black - dark [> hard contrast: #1d2021 / medium contrast: #282828 / soft contrast: #32302f <]
+	//"#cc241d", // red - dark
+	//"#98971a", // green - dark
+	//"#d79921", // yellow - dark
+	//"#83a598", // blue - bright
+	//"#b16286", // magenta - dark
+	//"#689d6a", // cyan - dark
+	//"#a89984", // white - dark
 	[255] = 0,
 	/* more colors can be added after 255 to use with DefaultXX */
 	//"#add8e6", [> 256 -> cursor <]
 	//"#555555", [> 257 -> rev cursor<]
 	//"#282828", [> 258 -> bg <]
 	//"#ebdbb2", [> 259 -> fg <]
-	"#d9d9d9", /* 256 -> cursor */
-	"#555555", /* 257 -> rev cursor*/
-	"#121212", /* 258 -> bg */
-	"#d6d6d6", /* 259 -> fg */
+    "#d9d9d9", // [> 256 -> cursor <]
+    "#555555", // [> 257 -> rev cursor<]
+    //"#121212", // [> 258 -> bg <]
+    //"#d6d6d6", // [> 259 -> fg <]
+    "#282828", // [> 258 -> bg <]
+    "#dfbf8e", // [> 259 -> fg <]
 };
 
 /*
